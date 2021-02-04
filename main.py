@@ -25,14 +25,23 @@ while difCheck:
     else:
         difCheck = False
 
-if dif.lower() == "easy":
+if dif.lower() == "easy" and op == "+" or "-":
     difN = [1, 20]
 
-elif dif.lower() == "medium":
+elif dif.lower() == "medium" and op == "+" or "-":
     difN = [1, 50]
 
-else:
+elif dif.lower() == "hard" and op == "+" or "-":
     difN = [1, 100]
+
+elif dif.lower() == "easy" and op == "*" or "/":
+    difN = [1, 5]
+
+elif dif.lower() == "medium" and op == "*" or "/":
+    difN = [1, 10]
+
+elif dif.lower() == "hard" and op == "*" or "/":
+    difN = [1, 20]
 
 qCount = True
 while qCount:
