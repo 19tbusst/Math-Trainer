@@ -1,6 +1,10 @@
 import random
 import time
 
+dif = 0
+times = 0
+op = 0
+
 opCheck = True
 while opCheck:
     op = (input("Welcome to math trainer, what do you want to practice (+, -, * or /) "))
@@ -22,13 +26,13 @@ while difCheck:
         difCheck = False
 
 if dif.lower() == "easy":
-    difn = [1, 20]
+    difN = [1, 20]
 
 elif dif.lower() == "medium":
-    difn = [1, 50]
+    difN = [1, 50]
 
 else:
-    difn = [1, 100]
+    difN = [1, 100]
 
 qCount = True
 while qCount:
@@ -44,10 +48,10 @@ timesFinal = times
 correct = 0
 
 training = True
-
+tStart = time.time()
 while training:
-    q1 = (random.randint(difn[0], difn[1]))
-    q2 = (random.randint(difn[0], difn[1]))
+    q1 = (random.randint(difN[0], difN[1]))
+    q2 = (random.randint(difN[0], difN[1]))
 
     if op == "+":
         ans = q1 + q2
@@ -67,7 +71,10 @@ while training:
             pans = int(input("Whats " + str(q1) + " " + str(op) + " " + str(q2) + "? "))
             times -= 1
         else:
-            print("Finished, you got", str(correct), "questions right out of", str(timesFinal), "questions")
+            tEnd = time.time()
+            totalTime = tEnd - tStart
+            avTime = round(totalTime / timesFinal, 2)
+            print("Finished, you got", str(correct), "questions right out of", str(timesFinal), "questions.\nYour average time was", avTime, "seconds!")
             break
 
     except ValueError:
@@ -77,10 +84,9 @@ while training:
     else:
         if int(pans) == ans:
             end = time.time()
-            totalTime = round((end - start), 2)
-            print("Correct! that took " + str(totalTime), "seconds")
+            qTime = round((end - start), 2)
+            print("Correct! that took " + str(qTime), "seconds")
             correct += 1
 
         else:
             print("Failed")
-
