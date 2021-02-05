@@ -4,6 +4,7 @@ import time
 dif = 0
 times = 0
 op = 0
+difN = [0, 0]
 
 opCheck = True
 while opCheck:
@@ -25,8 +26,11 @@ while difCheck:
     else:
         difCheck = False
 
+print(op, dif)
+
 if dif.lower() == "easy" and op == "+" or "-":
     difN = [1, 20]
+    print("easy +")
 
 elif dif.lower() == "medium" and op == "+" or "-":
     difN = [1, 50]
@@ -42,6 +46,11 @@ elif dif.lower() == "medium" and op == "*" or "/":
 
 elif dif.lower() == "hard" and op == "*" or "/":
     difN = [1, 20]
+
+else:
+    print("Error")
+
+print(difN)
 
 qCount = True
 while qCount:
