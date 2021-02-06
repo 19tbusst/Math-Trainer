@@ -26,31 +26,26 @@ while difCheck:
     else:
         difCheck = False
 
-print(op, dif)
+    if dif.lower() == "easy" and op == "+" or op == "-":
+        difN = [1, 20]
 
-if dif.lower() == "easy" and op == "+" or "-":
-    difN = [1, 20]
-    print("easy +")
+    elif dif.lower() == "medium" and op == "+" or op == "-":
+        difN = [3, 50]
 
-elif dif.lower() == "medium" and op == "+" or "-":
-    difN = [1, 50]
+    elif dif.lower() == "hard" and op == "+" or op == "-":
+        difN = [6, 100]
 
-elif dif.lower() == "hard" and op == "+" or "-":
-    difN = [1, 100]
+    elif dif.lower() == "easy" and op == "*" or op == "/":
+        difN = [1, 5]
 
-elif dif.lower() == "easy" and op == "*" or "/":
-    difN = [1, 5]
+    elif dif.lower() == "medium" and op == "*" or op == "/":
+        difN = [3, 10]
 
-elif dif.lower() == "medium" and op == "*" or "/":
-    difN = [1, 10]
+    elif dif.lower() == "hard" and op == "*" or op == "/":
+        difN = [5, 20]
 
-elif dif.lower() == "hard" and op == "*" or "/":
-    difN = [1, 20]
-
-else:
-    print("Error")
-
-print(difN)
+    else:
+        print("Error")
 
 qCount = True
 while qCount:
