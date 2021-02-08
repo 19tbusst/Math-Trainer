@@ -10,6 +10,7 @@ op = 0
 difN = [0, 0]
 correct = 0
 
+
 def addOp():
     global op
     op = "+"
@@ -22,11 +23,13 @@ def subOp():
     clear()
     difSelect()
 
+
 def divOp():
     global op
     op = "/"
     clear()
     difSelect()
+
 
 def multOp():
     global op
@@ -34,10 +37,12 @@ def multOp():
     clear()
     difSelect()
 
+
 def clear():
     list = root.grid_slaves()
     for l in list:
         l.grid_forget()
+
 
 def easy():
     global dif
@@ -45,17 +50,20 @@ def easy():
     clear()
     qCount()
 
+
 def medium():
     global dif
     dif = "medium"
     clear()
     qCount()
 
+
 def hard():
     global dif
     dif = "hard"
     clear()
     qCount()
+
 
 def difSelect():
     difL = Label(root, text="What difficulty do\nyou want to train at?")
@@ -79,6 +87,7 @@ def qCount():
     qL.grid(row=0, column=0)
     qE.grid(row=1, column=0)
     qB.grid(row=2, column=0)
+
 
 def qFinalize():
     try:
@@ -120,6 +129,14 @@ def qAnswer():
     qGen()
 
 
+def end():
+    sys.exit("Finished")
+
+
+def restart():
+    start()
+
+
 def qGen():
     global times, askE, ans, qStart
 
@@ -143,7 +160,6 @@ def qGen():
 
     else:
         print("Error")
-
 
     training = True
     while training:
@@ -175,10 +191,16 @@ def qGen():
                 break
             else:
                 totalTime = time.time() - tStart
-                avTime = round(totalTime / timesFinal, 2)
-                endL = Label(text="Finished, you got " + str(correct) + " questions right out of " + str(timesFinal) + " questions.\nYour average time was " + str(avTime) + " seconds!")
+                avTime = round((totalTime / timesFinal) - timesFinal, 2)
+                endL = Label(text="Finished, you got " + str(correct) + " \nquestions right out of " + str(
+                    timesFinal) + " questions.\nYour average  time was " + str(avTime) + " seconds!")
 
-                endL.grid(row=0, column=0)
+                endB = Button(text="End", command=end, padx=10)
+                restartB = Button(text="Restart", command=restart)
+
+                endB.grid(row=1, column=0)
+                restartB.grid(row=1, column=1)
+                endL.grid(row=0, column=0, columnspan=2)
                 break
 
         except ValueError:
@@ -187,17 +209,19 @@ def qGen():
             qGen()
 
 
-welcomeL = Label(text="Welcome to Math Trainer,\nwhat do you want to practice?")
-addB = Button(root, text="+", command=addOp, padx=12)
-subB = Button(root, text="-", command=subOp, padx=12)
-multB = Button(root, text="*", command=divOp, padx=12)
-divB = Button(root, text="/", command=multOp, padx=12)
+def start():
+    welcomeL = Label(text="Welcome to Math Trainer,\nwhat do you want to practice?")
+    addB = Button(root, text="+", command=addOp, padx=12)
+    subB = Button(root, text="-", command=subOp, padx=12)
+    multB = Button(root, text="*", command=multOp, padx=12)
+    divB = Button(root, text="/", command=divOp, padx=12)
 
+    welcomeL.grid(row=0, column=0, columnspan=4)
+    addB.grid(row=1, column=0)
+    subB.grid(row=1, column=1)
+    divB.grid(row=1, column=2)
+    multB.grid(row=1, column=3)
 
-welcomeL.grid(row=0, column=0, columnspan=4)
-addB.grid(row=1, column=0)
-subB.grid(row=1, column=1)
-divB.grid(row=1, column=2)
-multB.grid(row=1, column=3)
+start()
 
 root.mainloop()
