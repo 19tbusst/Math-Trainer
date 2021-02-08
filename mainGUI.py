@@ -80,6 +80,7 @@ def difSelect():
 def qCount():
     global qE
     global qL
+    root.bind('<Return>', qFinalize)
     qL = Label(root, text="How many questions\ndo you want?")
     qE = Entry(root)
     qB = Button(root, text="Done", command=qFinalize)
@@ -89,7 +90,7 @@ def qCount():
     qB.grid(row=2, column=0)
 
 
-def qFinalize():
+def qFinalize(e):
     try:
         global times
         global timesFinal
@@ -98,8 +99,14 @@ def qFinalize():
         tStart = time.time()
         times = int(qE.get())
         timesFinal = int(qE.get())
-        clear()
-        qGen()
+        if times <= 0:
+            qL.grid_forget()
+            qErrorL = Label(root, text="That's not a \npositive number")
+            qErrorL.grid(row=0, column=0)
+
+        else:
+            clear()
+            qGen()
 
     except ValueError:
         qL.grid_forget()
@@ -108,32 +115,41 @@ def qFinalize():
         qErrorL.grid(row=0, column=0)
 
 
-def qAnswer():
-    global correct
-    qTime = round(time.time() - qStart, 2)
-    pAns = askE.get()
-    clear()
-    print(int(pAns), int(ans))
-    if int(pAns) == ans:
-        ansL = Label(root, text="Correct! that took " + str(qTime) + " seconds")
-        ansL.grid(row=0, column=0)
-        correct += 1
+def qAnswer(e):
+    try:
+        global correct
+        qTime = round(time.time() - qStart, 2)
+        pAns = askE.get()
+        clear()
+        if int(pAns) == ans:
+            ansL = Label(root, text="Correct! that took " + str(qTime) + " seconds")
+            ansL.grid(row=0, column=0)
+            correct += 1
 
-    else:
+        else:
+            ansL = Label(root, text="Wrong")
+            ansL.grid(row=0, column=0)
+
+        root.update()
+        time.sleep(1)
+        clear()
+        qGen()
+
+    except ValueError:
         ansL = Label(root, text="Wrong")
         ansL.grid(row=0, column=0)
 
-    root.update()
-    time.sleep(1)
-    clear()
-    qGen()
-
+        root.update()
+        time.sleep(1)
+        clear()
+        qGen()
 
 def end():
     sys.exit("Finished")
 
 
 def restart():
+    clear()
     start()
 
 
@@ -180,6 +196,7 @@ def qGen():
 
         try:
             if times > 0:
+                root.bind('<Return>', qAnswer)
                 askL = Label(text="Whats " + str(q1) + " " + str(op) + " " + str(q2) + "?")
                 qStart = time.time()
                 times -= 1
